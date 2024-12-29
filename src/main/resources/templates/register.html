@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Register</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            top: 100px;
+            width: 600px; /* Set a fixed width for the container */
+            margin: 50px 0 0 50px; /* Add a top margin and align it to the left */
+            padding: 20px;
+            border: 1px solid #ddd; /* Optional: Add a border for better visibility */
+            border-radius: 10px; /* Rounded corners */
+            background-color: #f9f9f9; /* Light background for readability */
+            position: relative; /* Enables positioning of the logo */
+        }
+        h2 {
+            font-size: 2rem; /* Larger heading */
+            margin-bottom: 20px;
+        }
+        .form-control {
+            border-radius: 10px; /* Rounded input fields */
+            font-size: 1.2rem; /* Larger font size for input */
+            padding: 10px;
+        }
+        .btn {
+            border-radius: 10px; /* Rounded button */
+            font-size: 1.5rem; /* Larger button font */
+            padding: 10px 20px;
+            margin-top: 20px; /* Gap between the password field and button */
+        }
+        .logo {
+            position: absolute; /* Position the logo relative to the container */
+            top: 10px; /* Adjust vertical position */
+            right: -500px; /* Adjust horizontal position */
+            width: 300px; /* Set logo size */
+            height: auto; /* Maintain aspect ratio */
+        }
+        p {
+            font-size: 1.2rem; /* Larger text for error messages */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Logo positioned on the right -->
+        <img th:src="@{/images/logo.png}" alt="Logo" class="logo">
+        <h2>Register</h2>
+        <form th:object="${user}" method="post" action="/register">
+            <div class="form-group row">
+                <label for="username" class="col-sm-4 col-form-label">Username</label>
+                <div class="col-sm-8">
+                    <input type="email" th:field="*{username}" class="form-control" id="username" placeholder="Enter your email" required>
+                    <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="text-danger"></p>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="password" class="col-sm-4 col-form-label">Password</label>
+                <div class="col-sm-8">
+                    <input type="password" th:field="*{password}" class="form-control" id="password" placeholder="Enter your password" required>
+                    <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></p>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Register</button>
+        </form>
+        <p th:if="${error}" class="text-danger mt-3" th:text="${error}"></p>
+    </div>
+</body>
+</html>
+
+
